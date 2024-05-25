@@ -1,0 +1,123 @@
+title = "Főoldal" 
+url = "/" 
+layout = "default" 
+==
+<?php
+use LivestudioDev\Lscart\Models\Category;
+use LivestudioDev\Lscart\Models\Product;
+use Codergram\Slider\Models\Slider;
+use Codergram\Slider\Models\Banner;
+use Codergram\Shopforge\Models\Subscriber;
+use \Winter\Storm\Database\Traits\Validation;
+use LivestudioDev\Lscartreviews\Models\ProductReview;
+
+function onStart()
+{
+
+    $this['categories'] = Category::whereNull('parent_id')->where('active',  1)->with('children')->get();
+
+    $products = Product::where('status', '<>', 0)->orderBy('sort_order', 'ASC')->limit(8)->with('properties', 'image')->get();
+
+    $this['sliders'] = Slider::orderBy('sort_order', 'asc')->get();
+    $this['banners'] = Banner::all();
+
+    // foreach ($products as $item) {
+
+    //     $item->product_reviews = ProductReview::where('product_id', $item->id)->where('accepted', 1)->get();
+    //     $sum = 0;
+    
+    //     if(count($item->product_reviews) > 0) {
+    //         foreach($item->product_reviews as $review) {
+    //             $sum += floatval($review->star);
+    //         }
+    
+    //         $item->avg_review = floatval($sum / count($item->product_reviews));
+    //     } else {
+    //         $item->avg_review = 0;
+    //     }
+    
+    // }
+    
+    $products = Product::with('properties', 'image')
+        ->where('status', 1)
+        ->orderBy('created_at', 'DESC')
+        ->limit(20)
+        ->get();
+    
+    $products = $products->toArray();
+
+    $products = Product::hydrate($products);
+
+    $this['products'] = $products;
+    //$this['random_products'] = Product::inRandomOrder()->where([['status', 1]])->with('properties', 'image')->limit(4)->get();
+    // $this['new_products'] = $new_products;
+
+}
+
+function onCreateSub() {
+
+    $data = post();
+
+    $rules = [
+        'email' => 'required|email',
+    ];
+
+    $messages = [
+        'required' => 'A(z) :attribute megadása kötelező!',
+        'email' => 'A(z) :attribute mező formátuma nem megfelelő!',
+    ];
+
+    $validation = Validator::make($data, $rules, $messages);
+
+    $validation->setAttributeNames([
+        'email' => 'e-mail',
+    ]);
+
+    if ($validation->fails()) {
+        throw new ValidationException($validation);
+    } else {
+
+        $equal = 0;
+        $subs = Subscriber::all();
+
+        foreach ($subs as $item) {
+            if ($item->email == post('email')) {
+                $equal = 1;
+            }
+        }
+
+        if ($equal == 1) {
+            Flash::error("Már feliratkoztál hírlevelünkre. Egy e-mail cím, csak egy személyhez tartozhat.");
+        } else {
+            $sub = new Subscriber();
+            $sub->email = post('email');
+            $sub->active = 1;
+            
+    
+        
+            if ($sub->save()) {
+                Flash::success("Sikeresen feliratkoztál hírlevelünkre!");
+            } else {
+                Flash::error("Valami hiba törént");
+            }
+        }
+
+    }
+
+}
+?>
+==
+<div id="home">
+    <div class="container mx-auto w-11/12">
+        <h1 class="text-8xl my-10">
+            hello
+        </h1>
+    </div>
+</div>
+
+{% put scripts %}
+<script>
+	const nexticon = '<i class="fa-regular fa-chevron-right"></i>';
+	const previcon = '<i class="fa-regular fa-chevron-left"></i>';
+</script>
+{% endput %}

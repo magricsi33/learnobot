@@ -1,0 +1,54 @@
+title = "Tudástár" 
+url = "/tudastar" 
+layout = "default" 
+==
+<?php
+use LivestudioDev\Lscart\Models\Category;
+use LivestudioDev\Lscart\Models\Product;
+use Codergram\Slider\Models\Slider;
+use Codergram\Slider\Models\Banner;
+use Codergram\Shopforge\Models\Subscriber;
+use \Winter\Storm\Database\Traits\Validation;
+use LivestudioDev\Lscartsreviews\Models\ProductReview;
+
+function onStart()
+{
+
+}
+
+?>
+==
+<div>
+    <div class="container mx-auto w-11/12">
+        <h1 class="text-3xl my-10 font-bold">
+            {{ this.page.title }}
+        </h1>
+        <div x-data="{ activeDropdown: null }" class="pb-5 xl:mb-12 w-full">
+            {% for i in 0..6 %}
+            <button 
+            @click="activeDropdown === 'dropdown{{ loop.index }}' ? activeDropdown = null : activeDropdown = 'dropdown{{ loop.index }}'"
+            class="text-start font-bold px-4 text-lg py-5 flex items-center justify-between border border-b-neutral-200 border-x-neutral-200 border-t-transparent w-full
+            transition-all ease-in-out {{ loop.index == 1 ? '!border-t-neutral-200' : '' }}"
+            :class="{ 'border-x-neutral-200 border-b-transparent': activeDropdown === 'dropdown{{ loop.index }}' }">
+                <span>Lorem ipsum dolor sit amet</span>
+                <i class="fa-regular fa-angle-down text-[#585C63]" :class="{ 'rotate-180': activeDropdown === 'dropdown{{ loop.index }}' }"></i>
+            </button>
+            <div class="transition-all ease-in-out duration-200 w-full max-h-0 overflow-auto opacity-0 rawContent border border-neutral-200" 
+            :class="{ '!max-h-[1500px] !opacity-100': activeDropdown === 'dropdown{{ loop.index }}' }">
+                <div class="p-4">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam pulvinar lectus at felis vulputate, in auctor ex eleifend. Proin imperdiet 
+                    condimentum purus vitae luctus. Nullam vitae gravida lacus, ac fringilla massa. Aliquam nec enim tincidunt, pretium dolor quis, tincidunt leo. 
+                    Nulla pulvinar efficitur rhoncus. Integer suscipit aliquet sem, sed scelerisque libero feugiat at.
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% put scripts %}
+<script>
+	const nexticon = '<i class="fa-regular fa-chevron-right"></i>';
+	const previcon = '<i class="fa-regular fa-chevron-left"></i>';
+</script>
+{% endput %}

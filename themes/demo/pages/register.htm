@@ -1,0 +1,69 @@
+title = "Regisztráció"
+url = "/regisztracio"
+layout = "default"
+is_hidden = 0
+
+[account]
+paramCode = "code"
+forceSecure = 0
+requirePassword = 0
+
+[session]
+security = "guest"
+redirect = "profile"
+==
+<?php
+use RainLab\User\Facades\Auth;
+use RainLab\User\Models\User;
+
+function onStart() {
+
+}
+?>
+==
+{% set input = 'bg-[#fff] h-[55px] px-4 w-full focus:outline-0 rounded-lg border border-neutral-200' %}
+{% set label = 'font-medium mb-[3px] text-sm' %}
+<div class="xl:w-3/12 md:w-9/12 lg:w-10/12 w-11/12 flex flex-col justify-center mx-auto relative z-10 xl:mt-36 mt-20 bg-white rounded-xl xl:shadow-xl xl:p-10 xl:border border-neutral-200">
+    <h1 class="xl:text-4xl text-3xl font-medium mb-5">
+        Regisztráció
+    </h1>
+    <div class="text-zinc-500 mb-10 flex flex-wrap items-center">
+        <p class="mr-2">
+            Van már felhasználód? 
+        </p>
+        <a href="{{ 'login'|page }}" class="font-medium">
+            Belépés
+        </a>
+    </div>
+    <div class="flex flex-wrap w-full">
+        <form data-request="onRegister" data-request-flash class="w-full">
+
+            <div class="w-full px-2 mb-4 flex flex-col gap-1">
+                <label for="name" class="{{ label }}" required>Teljes név <sup class="text-red-500 text-[8px]">kötelező</sup></label>
+                <input type="text" required class="{{ input }}" name="name" id="name" placeholder="Teljes név">
+            </div>
+            
+            <div class="w-full px-2 mb-4 flex flex-col gap-1">
+                <label for="email" class="{{ label }}" required>E-mail cím <sup class="text-red-500 text-[8px]">kötelező</sup></label>
+                <input type="text" required class="{{ input }}" name="email" id="email" placeholder="E-mail cím">
+            </div>
+            
+            <div class="w-full px-2 mb-4 flex flex-col gap-1">
+                <label for="password" class="{{ label }}" required>Jelszó <sup class="text-red-500 text-[8px]">kötelező</sup></label>
+                <input type="password" required class="{{ input }}" name="password" id="password" placeholder="Jelszó">
+            </div>
+            
+            <div class="w-full px-2 mb-4 flex flex-col gap-1">
+                <label for="password_confirmation" class="{{ label }}" required>Jelszó megerősítése <sup class="text-red-500 text-[8px]">kötelező</sup></label>
+                <input type="password" required class="{{ input }}" name="password_confirmation" id="password_confirmation" placeholder="Jelszó megerősítése">
+            </div>
+
+            <button 
+            type="submit"
+            class="bg-[#2B3990] text-white hover:text-white flex items-center justify-center w-full transition-all ease-in-out rounded-xl 
+            py-4 font-medium oswald hover:brightness-110 uppercase disabled:opacity-40 disabled:cursor-not-allowed text-sm">
+                Belépés
+            </button>
+        </form>
+    </div>
+</div>
