@@ -1,0 +1,302 @@
+tabs:
+    fields:
+        name:
+            label: 'Termék neve'
+            span: auto
+            type: text
+            commentAbove: 'Ez jelenik meg az oldalon'
+            tab: Alapadatok
+        category_id:
+            label: Kategória
+            showSearch: true
+            span: auto
+            type: dropdown
+            commentAbove: 'Termék kategóriája'
+            tab: Alapadatok
+        price:
+            label: 'Termék Nettó Ára'
+            span: auto
+            default: '0'
+            disabled: 1
+            dependsOn:
+                - price_brutto
+            type: number
+            commentAbove: 'Árajánlatkérés esetében hagyja 0-án'
+            tab: Alapadatok
+        price_brutto:
+            label: 'Termék Bruttó Ára'
+            span: auto
+            dependsOn: {  }
+            type: number
+            commentAbove: 'Árajánlatkérés esetében hagyja 0-án'
+            tab: Alapadatok
+        image:
+            label: 'Termék képe'
+            mode: image
+            useCaption: true
+            thumbOptions:
+                mode: crop
+                extension: png
+            span: left
+            type: fileupload
+            tab: Alapadatok
+        gallery:
+            label: 'Termék galléria képei'
+            mode: image
+            useCaption: true
+            thumbOptions:
+                mode: crop
+                extension: auto
+            span: auto
+            type: fileupload
+            tab: Alapadatok
+        cikkszam:
+            label: Cikkszám
+            span: auto
+            type: text
+            tab: Alapadatok
+        slug:
+            label: 'Keresőbarát név'
+            span: auto
+            type: text
+            comment: 'Hagyja üresen az automatikus generáláshoz'
+            tab: Alapadatok
+        status:
+            label: 'Termék státusz'
+            showSearch: true
+            span: auto
+            default: '1'
+            type: dropdown
+            tab: Alapadatok
+        image_link:
+            label: 'Kép elérhetősége'
+            span: auto
+            hidden: 1
+            type: text
+            tab: Alapadatok
+        description:
+            label: Leírás
+            size: large
+            span: full
+            type: richeditor
+            tab: Alapadatok
+        meta_description:
+            label: Leírás
+            size: ''
+            span: auto
+            type: textarea
+            commentAbove: (META)
+            tab: SEO
+        meta_title:
+            label: Cím
+            span: auto
+            type: text
+            commentAbove: (META)
+            tab: SEO
+        meta_keywords:
+            label: Keresőszavak
+            mode: string
+            separator: comma
+            customTags: true
+            useKey: false
+            span: auto
+            type: taglist
+            commentAbove: (META)
+            tab: SEO
+        unit:
+            label: Mértékegység
+            nameFrom: name
+            descriptionFrom: description
+            span: auto
+            type: relation
+            commentAbove: 'Termék mértékegysége'
+            tab: Egyéb
+        vatkey:
+            label: 'Adó kulcs'
+            nameFrom: name
+            descriptionFrom: description
+            span: auto
+            type: relation
+            commentAbove: 'Termék adókulcsa'
+            tab: Egyéb
+        stock:
+            label: 'Raktáron lévő'
+            span: auto
+            type: number
+            comment: 'Raktáron lévő termékek száma'
+            tab: Egyéb
+        variantonly:
+            label: 'Csak a variánsok használata'
+            span: auto
+            type: switch
+            comment: 'Ebben az esetben az alap termék csak egy minta, és csak a variánsok használatával tehető kosárba az adott termék'
+            tab: 'Változatok / Variánsok'
+        variants:
+            span: full
+            path: $/livestudiodev/lscart/controllers/products/variants_relation.htm
+            type: partial
+            tab: 'Változatok / Variánsok'
+        related_products:
+            span: full
+            path: related_products
+            type: partial
+            tab: 'Kapcsolódó termékek'
+        properties_partial:
+            span: full
+            path: $/livestudiodev/lscart/controllers/products/add_properties.htm
+            type: partial
+            tab: Tulajdonságok
+        need_editior:
+            label: 'Tervezés szükséges'
+            span: auto
+            type: switch
+            tab: Editior
+        editior_inputs:
+            label: 'Szerkesztő mezők'
+            prompt: 'Add new item'
+            style: default
+            span: full
+            type: repeater
+            tab: Editior
+            form:
+                fields:
+                    name:
+                        label: név
+                        span: auto
+                        type: text
+                    code:
+                        label: code
+                        span: auto
+                        type: text
+                    default:
+                        label: default
+                        span: auto
+                        type: text
+                    type:
+                        label: type
+                        options:
+                            text: text
+                            image: image
+                            textarea: textarea
+                        showSearch: true
+                        span: auto
+                        type: dropdown
+                    class:
+                        label: class
+                        span: auto
+                        type: text
+                    itemClass:
+                        label: itemClass
+                        span: auto
+                        type: text
+                        tab: Editior
+                    z:
+                        label: z-index
+                        span: auto
+                        type: number
+                    Desktop:
+                        label: Desktop
+                        span: full
+                        type: section
+                    w:
+                        label: width
+                        span: auto
+                        type: text
+                    h:
+                        label: height
+                        span: auto
+                        type: text
+                    l:
+                        label: left
+                        span: auto
+                        type: text
+                    t:
+                        label: top
+                        span: auto
+                        type: text
+                    b:
+                        label: bottom
+                        span: auto
+                        type: text
+                    r:
+                        label: right
+                        span: auto
+                        type: text
+                    size:
+                        label: size
+                        span: auto
+                        type: text
+                    Mobil:
+                        label: Mobil
+                        span: full
+                        type: section
+                    mobil_w:
+                        label: width
+                        span: auto
+                        type: text
+                    mobil_h:
+                        label: height
+                        span: auto
+                        type: text
+                    mobil_l:
+                        label: left
+                        span: auto
+                        type: text
+                    mobil_t:
+                        label: top
+                        span: auto
+                        type: text
+                    mobil_b:
+                        label: bottom
+                        span: auto
+                        type: text
+                    mobil_r:
+                        label: right
+                        span: auto
+                        type: text
+                    mobil_size:
+                        label: size
+                        span: auto
+                        type: text
+                    Tablet:
+                        label: Tablet
+                        span: full
+                        type: section
+                    tablet_w:
+                        label: width
+                        span: auto
+                        type: text
+                    tablet_h:
+                        label: height
+                        span: auto
+                        type: text
+                    tablet_l:
+                        label: left
+                        span: auto
+                        type: text
+                    tablet_t:
+                        label: top
+                        span: auto
+                        type: text
+                    tablet_b:
+                        label: bottom
+                        span: auto
+                        type: text
+                    tablet_r:
+                        label: right
+                        span: auto
+                        type: text
+                    tablet_size:
+                        label: size
+                        span: auto
+                        type: text
+        editor_image:
+            label: 'Szerkesztési kép'
+            mode: image
+            useCaption: true
+            thumbOptions:
+                mode: crop
+                extension: auto
+            span: auto
+            type: fileupload
+            tab: Editior
